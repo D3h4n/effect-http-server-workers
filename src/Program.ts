@@ -2,8 +2,8 @@ import { Console, Effect, Layer } from "effect";
 import { HttpApiBuilder } from "@effect/platform";
 import { createServer } from "node:http";
 import { NodeHttpServer, NodeRuntime } from "@effect/platform-node";
-import Api, { ApiError } from "./Api.js";
-import { Pool, PoolLive } from "./Pool.js";
+import Api, { ApiError } from "@/Api.js";
+import { Pool, PoolLive } from "@/Pool.js";
 
 const handleEndpoint = (endpoint: string) =>
   Effect.gen(function* () {

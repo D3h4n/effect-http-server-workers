@@ -15,11 +15,14 @@ export const Pool = Context.GenericTag<
 export const PoolLive = Worker.makePoolLayer(Pool, {
   size: 5,
   concurrency: 2,
-}).pipe(Layer.provide(NodeWorker.layer(() => tsWorker("./worker/Worker.js"))));
+}).pipe(Layer.provide(NodeWorker.layer(() => tsWorker("./worker/Worker.ts"))));
 
 const tsWorker = (path: string) => {
   const url = new URL(path, import.meta.url);
-  return new WT.Worker(`import('${url.pathname}')`, {
-    eval: true,
-  });
+  return new WT.Worker(
+    `import('tsx/esm/api').then(({ register }) => { register(); import('${url.pathname}') })`,
+    {
+      eval: true,
+    },
+  );
 };

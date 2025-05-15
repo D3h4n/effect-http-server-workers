@@ -1,7 +1,6 @@
 import { FetchHttpClient, HttpApiClient } from "@effect/platform";
 import { Console, Effect } from "effect";
-
-import Api from "./Api.js";
+import Api from "@/Api.js";
 
 const HttpClient = HttpApiClient.make(Api, {
   baseUrl: "http://localhost:3000",
