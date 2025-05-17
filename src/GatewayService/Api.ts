@@ -10,10 +10,11 @@ export class ApiError extends Schema.TaggedError<ApiError>()("ApiError", {
   msg: Schema.String,
 }) {}
 
-export default class Api extends HttpApi.make("Api").add(
+export class Api extends HttpApi.make("Api").add(
   HttpApiGroup.make("Index")
     .add(
       HttpApiEndpoint.get("home", "/")
+        .setUrlParams(Schema.Struct({ content: Schema.String }))
         .addSuccess(
           Schema.String.pipe(
             HttpApiSchema.withEncoding({
@@ -33,6 +34,7 @@ export default class Api extends HttpApi.make("Api").add(
     )
     .add(
       HttpApiEndpoint.get("about", "/about")
+        .setUrlParams(Schema.Struct({ content: Schema.String }))
         .addSuccess(
           Schema.String.pipe(
             HttpApiSchema.withEncoding({
@@ -59,5 +61,13 @@ export default class Api extends HttpApi.make("Api").add(
         }),
       ),
       { status: 404 },
+    )
+    .addError(
+      ApiError.pipe(
+        HttpApiSchema.withEncoding({
+          kind: "Json",
+          contentType: "application/json",
+        }),
+      ),
     ),
 ) {}
