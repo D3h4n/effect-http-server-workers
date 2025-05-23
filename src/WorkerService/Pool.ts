@@ -1,7 +1,7 @@
 import { Context, Layer } from "effect";
 import { Worker } from "@effect/platform";
 import { NodeWorker } from "@effect/platform-node";
-import { Worker as NodeJSWorker } from "node:worker_threads";
+import { Worker as NativeNodeWorker } from "node:worker_threads";
 import { NodeWorkerError, NodeWorkerRequest } from "./worker/index.js";
 
 export interface MyWorkerPool {
@@ -20,7 +20,7 @@ export const NodeWorkerPoolLive = Worker.makePoolLayer(NodeWorkerPool, {
 
 const tsWorker = (path: string) => {
   const url = new URL(path, import.meta.url);
-  return new NodeJSWorker(
+  return new NativeNodeWorker(
     `import('tsx/esm/api').then(({ register }) => { register(); import('${url.pathname}') })`,
     {
       eval: true,
