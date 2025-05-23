@@ -11,7 +11,7 @@ const program = Effect.gen(function* () {
   const client = yield* HttpClient;
 
   const homePageEffect = client.Index.home({
-    urlParams: { content: "Hehehehehe" },
+    urlParams: { content: "Hello World" },
   });
   const aboutPageEffect = client.Index.about({
     urlParams: { content: "OogaBooga" },
