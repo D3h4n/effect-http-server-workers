@@ -14,7 +14,7 @@ export const NodeWorkerPool = Context.GenericTag<
 >("MyWorkerPool");
 
 export const NodeWorkerPoolLive = Worker.makePoolLayer(NodeWorkerPool, {
-  size: 5,
+  size: 2,
   concurrency: 2,
 }).pipe(Layer.provide(NodeWorker.layer(() => tsWorker("./worker/Worker.ts"))));
 
