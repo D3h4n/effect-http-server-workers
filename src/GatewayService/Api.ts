@@ -14,7 +14,13 @@ export class Api extends HttpApi.make("Api").add(
   HttpApiGroup.make("Index")
     .add(
       HttpApiEndpoint.get("home", "/")
-        .setUrlParams(Schema.Struct({ content: Schema.String }))
+        .setUrlParams(
+          Schema.Struct({
+            content: Schema.optionalWith(Schema.NonEmptyString, {
+              exact: true,
+            }),
+          }),
+        )
         .addSuccess(
           Schema.String.pipe(
             HttpApiSchema.withEncoding({
@@ -34,7 +40,13 @@ export class Api extends HttpApi.make("Api").add(
     )
     .add(
       HttpApiEndpoint.get("about", "/about")
-        .setUrlParams(Schema.Struct({ content: Schema.String }))
+        .setUrlParams(
+          Schema.Struct({
+            content: Schema.optionalWith(Schema.NonEmptyString, {
+              exact: true,
+            }),
+          }),
+        )
         .addSuccess(
           Schema.String.pipe(
             HttpApiSchema.withEncoding({

@@ -26,7 +26,6 @@ export class NodeWorkersRpc extends RpcGroup.make(
   Rpc.make("UnknownPage", {
     error: ApiError,
     success: Schema.String,
-    payload: NodeWorkersRpcRequestSchema,
   }),
 ) {}
 
@@ -63,8 +62,7 @@ export const NodeWorkersLive = NodeWorkersRpc.toLayer(
       HomePage: (req) => workersService.handleRequest({ ...req, page: "home" }),
       AboutPage: (req) =>
         workersService.handleRequest({ ...req, page: "about" }),
-      UnknownPage: (req) =>
-        workersService.handleRequest({ ...req, page: "404" }),
+      UnknownPage: () => workersService.handleRequest({ page: "404" }),
     };
   }),
 ).pipe(
